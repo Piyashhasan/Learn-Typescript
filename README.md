@@ -11,7 +11,7 @@
 
 ## Table of Contents
 
-- [Install TypeScript](#install-typescript)
+- [Install TypeScript](#install-typescript--)
 - [Introduction to TypeScript](#introduction-to-typescript)
 - [All About Types](#all-about-types)
 - [Variables](#variables)
