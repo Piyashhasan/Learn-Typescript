@@ -326,11 +326,11 @@ Follow steps 1-3 from the Basic Setup above.
 
     - Primitive Types
     - Special Types
+    - Union Types
     - Collection Types
     - Tuples
     - Enums
     - Object Types
-    - Union Types
     - Intersection Types
     - Class
     - Utility Types
