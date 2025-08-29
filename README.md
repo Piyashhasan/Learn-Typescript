@@ -814,3 +814,109 @@ Follow steps 1-3 from the Basic Setup above.
       return "Error occurred!";
     }
     ```
+
+    **Union Types:**
+
+    A Union Type allows a variable to hold more than one type. It is written using the pipe (|) symbol.
+
+    ```ts
+    let value: string | number;
+    value = "Hello"; // ✅ string
+    value = 100; // ✅ number
+    ```
+
+    Why Use Union Types?
+
+    - Makes variables flexible (can hold multiple types).
+    - Reduces duplication (no need to declare multiple variables).
+    - Improves type safety compared to any.
+
+    Basic Union Type Example -
+
+    ```ts
+    let id: number | string;
+    id = 123; // ✅ number
+    id = "ABC123"; // ✅ string
+    ```
+
+    Union with Primitive Types -
+
+    ```ts
+    let result: number | boolean;
+    result = 10; // ✅
+    result = true; // ✅
+    ```
+
+    Union with Arrays -
+
+    ```ts
+    let values: (string | number)[] = [1, "two", 3, "four"];
+    ```
+
+    Union with Functions -
+
+    - A function can accept multiple types for parameters.
+
+      ```ts
+      function printId(id: number | string) {
+        console.log("ID:", id);
+      }
+
+      printId(101); // ✅ number
+      printId("ABC123"); // ✅ string
+      ```
+
+    Union with Object Types -
+
+    ```ts
+    type User = { id: number; name: string };
+    type Guest = { id: string; guest: true };
+
+    let person: User | Guest;
+
+    person = { id: 1, name: "Piyash" }; // ✅ User
+    person = { id: "G-123", guest: true }; // ✅ Guest
+    ```
+
+    Literal Unions -
+
+    - Restrict a variable to specific values.
+
+      ```ts
+      type Direction = "Up" | "Down" | "Left" | "Right";
+
+      let move: Direction;
+      move = "Up"; // ✅
+      move = "Left"; // ✅
+      move = "Forward"; // ❌ Error
+      ```
+
+    Union with Type Aliases -
+
+    ```ts
+    type ID = number | string;
+
+    function printId(id: ID) {
+      console.log("ID:", id);
+    }
+    ```
+
+    Discriminated Unions -
+
+    - Great for handling multiple object shapes safely.
+
+      ```ts
+      type Square = { kind: "square"; size: number };
+      type Circle = { kind: "circle"; radius: number };
+
+      type Shape = Square | Circle;
+
+      function area(shape: Shape) {
+        switch (shape.kind) {
+          case "square":
+            return shape.size * shape.size;
+          case "circle":
+            return Math.PI * shape.radius ** 2;
+        }
+      }
+      ```
