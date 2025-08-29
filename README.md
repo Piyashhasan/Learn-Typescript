@@ -702,3 +702,115 @@ Follow steps 1-3 from the Basic Setup above.
         [3, "Charlie"],
       ];
       ```
+
+    **Enums:**
+
+    Enums (short for enumerations) are a way to define a set of named constants in TypeScript. They make code more readable and maintainable.
+
+    ```ts
+    enum Direction {
+      Up,
+      Down,
+      Left,
+      Right,
+    }
+
+    let move: Direction = Direction.Up;
+    console.log(move); // Output: 0
+    ```
+
+    Why use Enums?
+
+    - Improves code readability
+    - Prevents using hardcoded values
+    - Helps in maintaining consistent values
+
+    Enum Types in TypeScript?
+
+    - Numeric Enums (Default)
+
+      - By default, enums are numeric, starting from 0.
+
+      </br>
+
+      ```ts
+      enum Status {
+        Success, // 0
+        Failure, // 1
+        Pending, // 2
+      }
+      console.log(Status.Success); // 0
+      console.log(Status[1]);
+      ```
+
+    - String Enums
+
+      - You can assign string values instead of numbers.
+
+      </br>
+
+      ```ts
+      enum Role {
+        Admin = "ADMIN",
+        User = "USER",
+        Guest = "GUEST",
+      }
+      console.log(Role.Admin); // ADMIN
+      ```
+
+    - Heterogeneous Enums
+
+      - Mix of string and numeric values (not recommended often).
+
+      </br>
+
+      ```ts
+      enum Mixed {
+        Yes = "YES",
+        No = 0,
+      }
+      console.log(Mixed.Yes); // YES
+      ```
+
+    Reverse Mapping in Enums -
+
+    - Works only for numeric enums (not string enums).
+
+    </br>
+
+    ```ts
+    enum Colors {
+      Red,
+      Green,
+      Blue,
+    }
+    console.log(Colors.Red); // 0
+    console.log(Colors[0]);
+    ```
+
+    Enums vs Objects -
+
+    - Enums are compiled into objects at runtime. But enums provide reverse mapping and better type safety.
+
+    Advanced Enum Usage in Real Projects -
+
+    - API status codes
+    - User roles/permissions
+    - Configurable app modes
+
+    </br>
+
+    ```ts
+    enum HttpStatus {
+      OK = 200,
+      NotFound = 404,
+      InternalError = 500,
+    }
+
+    function handleResponse(code: HttpStatus) {
+      if (code === HttpStatus.OK) {
+        return "Request successful!";
+      }
+      return "Error occurred!";
+    }
+    ```
