@@ -348,7 +348,7 @@ Follow steps 1-3 from the Basic Setup above.
 
     - **Tuples**
     - **Enums**
-    - **Object Types**
+    - **Object & Interface**
     - **Class**
     - **Utility Types**
 
@@ -1042,3 +1042,152 @@ Follow steps 1-3 from the Basic Setup above.
       return "Error occurred!";
     }
     ```
+
+    **Objects**
+
+    In TypeScript, an object is a collection of key-value pairs where keys are strings (or symbols) and values can be of any type.
+
+    ```ts
+    // Example: Simple object
+    let person = {
+      name: "Piyash",
+      age: 24,
+      isDeveloper: true,
+    };
+    ```
+
+    **Explicit Object Type -**
+
+    You can define an object type using type annotations.
+
+    ```ts
+    let user: { name: string; age: number; isActive: boolean } = {
+      name: "Hasan",
+      age: 25,
+      isActive: true,
+    };
+    ```
+
+    **Optional Properties (?) -**
+
+    Sometimes, not all properties are required.
+
+    ```ts
+    type User = {
+      name: string;
+      age?: number; // optional
+    };
+
+    let u1: User = { name: "Piyash" }; // ✅ allowed
+    let u2: User = { name: "Hasan", age: 24 }; // ✅ allowed
+    ```
+
+    **Readonly Properties -**
+
+    Use readonly to make properties immutable.
+
+    ```ts
+    type Car = {
+      readonly brand: string;
+      model: string;
+    };
+
+    let myCar: Car = { brand: "Tesla", model: "Model S" };
+    myCar.model = "Model X"; // ✅ allowed
+    // myCar.brand = "BMW"; // ❌ Error: brand is readonly
+    ```
+
+    **Index Signatures (Dynamic Keys) -**
+
+    When you don’t know all property names in advance.
+
+    ```ts
+    type StringDictionary = {
+      [key: string]: string;
+    };
+
+    let colors: StringDictionary = {
+      red: "FF0000",
+      green: "00FF00",
+    };
+    colors.blue = "0000FF"; // ✅
+    ```
+
+    **Nested Objects -**
+
+    Objects inside objects.
+
+    ```ts
+    type Employee = {
+      id: number;
+      details: {
+        name: string;
+        position: string;
+      };
+    };
+
+    let emp: Employee = {
+      id: 1,
+      details: {
+        name: "Piyash",
+        position: "Frontend Developer",
+      },
+    };
+    ```
+
+    **Objects with Functions (Methods) -**
+
+    ```ts
+    type Product = {
+      name: string;
+      price: number;
+      getDiscountedPrice(discount: number): number;
+    };
+
+    let laptop: Product = {
+      name: "MacBook",
+      price: 2000,
+      getDiscountedPrice(discount) {
+        return this.price - discount;
+      },
+    };
+
+    console.log(laptop.getDiscountedPrice(200)); // 1800
+    ```
+
+    **Class**
+
+    A class is a blueprint for creating objects.
+
+    It can contain:
+
+    - Properties → variables inside a class
+    - Methods → functions inside a class
+
+    Basic Class Example -
+
+    ```ts
+    class Person {
+      name: string;
+      age: number;
+
+      // Constructor is called when creating a new object
+      constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+      }
+
+      // Method
+      greet(): void {
+        console.log(
+          `Hello, my name is ${this.name} and I am ${this.age} years old.`
+        );
+      }
+    }
+
+    // Creating an object
+    let p1 = new Person("Piyash", 24);
+    p1.greet(); // Output: Hello, my name is Piyash and I am 24 years old.
+    ```
+
+> **Note:** We will explore Classes in depth, along with Object-Oriented Programming (OOP) concepts in TypeScript, in the dedicated Classes & OOP section
