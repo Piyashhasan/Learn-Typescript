@@ -1043,7 +1043,7 @@ Follow steps 1-3 from the Basic Setup above.
     }
     ```
 
-    **Objects**
+    **Objects:**
 
     In TypeScript, an object is a collection of key-value pairs where keys are strings (or symbols) and values can be of any type.
 
@@ -1155,7 +1155,7 @@ Follow steps 1-3 from the Basic Setup above.
     console.log(laptop.getDiscountedPrice(200)); // 1800
     ```
 
-    **Class**
+    **Class:**
 
     A class is a blueprint for creating objects.
 
@@ -1190,4 +1190,121 @@ Follow steps 1-3 from the Basic Setup above.
     p1.greet(); // Output: Hello, my name is Piyash and I am 24 years old.
     ```
 
-> **Note:** We will explore Classes in depth, along with Object-Oriented Programming (OOP) concepts in TypeScript, in the dedicated Classes & OOP section
+    > **Note:** We will explore Classes in depth, along with Object-Oriented Programming (OOP) concepts in TypeScript, in the dedicated Classes & OOP section
+
+    **Utility Types in TypeScript (Built-in):**
+
+    TypeScript provides several built-in utility types that help transform existing types into new ones. These are very useful when working with objects and APIs.
+
+    - Partial<T> :
+
+    Makes all properties optional.
+
+    ```ts
+    type User = {
+      id: number;
+      name: string;
+      email: string;
+    };
+
+    type PartialUser = Partial<User>;
+
+    let u1: PartialUser = { name: "Piyash" }; // ✅ only 'name' provided
+    let u2: PartialUser = {}; // ✅ even empty object is allowed
+    ```
+
+    > **Note:** 👉 Use when updating part of an object (e.g., PATCH request in APIs).
+
+    - Readonly<T>
+
+    Makes all properties immutable (cannot be changed).
+
+    ```ts
+    type Person = {
+      id: number;
+      name: string;
+      age: number;
+      email: string;
+    };
+
+    type PersonName = Pick<Person, "id" | "name">;
+
+    let p: PersonName = { id: 1, name: "Hasan" }; // ✅ only 'id' & 'name'
+    ```
+
+    > **Note:** 👉 Use when you want to prevent accidental changes.
+
+    - Pick<T, K>
+
+    Creates a new type by choosing specific properties from another type.
+
+    ```ts
+    type Person = {
+      id: number;
+      name: string;
+      age: number;
+      email: string;
+    };
+
+    type PersonName = Pick<Person, "id" | "name">;
+
+    let p: PersonName = { id: 1, name: "Hasan" }; // ✅ only 'id' & 'name'
+    ```
+
+    > **Note:** 👉 Useful when you need only some properties.
+
+    - Omit<T, K>
+
+    The opposite of Pick → removes specific properties.
+
+    ```ts
+    type Employee = {
+      id: number;
+      name: string;
+      department: string;
+    };
+
+    type WithoutDept = Omit<Employee, "department">;
+
+    let e: WithoutDept = { id: 101, name: "Piyash" }; // ✅ no 'department'
+    ```
+
+    > **Note:** 👉 Useful when you need all except certain properties.
+
+    - Record<K, T>
+
+    Creates an object type with keys of type K and values of type T.
+
+    ```ts
+    type Roles = "admin" | "user" | "guest";
+
+    type RolePermissions = Record<Roles, string[]>;
+
+    let permissions: RolePermissions = {
+      admin: ["create", "read", "update", "delete"],
+      user: ["read", "update"],
+      guest: ["read"],
+    };
+    ```
+
+    > **Note:** 👉 Useful when creating maps / dictionaries.
+
+    - Required<T>
+
+    Makes all optional properties required.
+
+    ```ts
+    type Profile = {
+      username?: string;
+      email?: string;
+    };
+
+    type FullProfile = Required<Profile>;
+
+    let p: FullProfile = {
+      username: "piyash",
+      email: "test@mail.com",
+    }; // ✅ now both required
+    ```
+
+    > **Note:** 👉 Useful when you want to enforce all fields must be filled.
