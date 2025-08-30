@@ -324,7 +324,7 @@ Follow steps 1-3 from the Basic Setup above.
 
 5.  **Basic Type Categories in TypeScript -**
 
-    - Primitive Types
+    - **Primitive Types**
 
       - Number
       - String
