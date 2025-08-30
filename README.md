@@ -333,27 +333,28 @@ Follow steps 1-3 from the Basic Setup above.
       - BigInt
       - Symbol
 
-    - Special Types
+    - **Special Types**
 
       - Any
       - Unknown
       - Never
+      - Void
 
-    - Union Types
-    - Collection Types
+    - **Union Types**
+    - **Collection Types**
 
       - Array
 
-    - Tuples
-    - Enums
-    - Object Types
-    - Intersection Types
-    - Class
-    - Utility Types
+    - **Tuples**
+    - **Enums**
+    - **Object Types**
+    - **Intersection Types**
+    - **Class**
+    - **Utility Types**
 
     **Primitive Types:**
 
-    - Number
+    - **Number**
 
       Represents numeric values. TypeScript supports integers, floats, and hexadecimal numbers.
 
@@ -363,7 +364,7 @@ Follow steps 1-3 from the Basic Setup above.
       let hexValue: number = 0xff; // hexadecimal
       ```
 
-    - String
+    - **String**
 
       Represents text values. Strings can use single quotes, double quotes, or backticks (template literals).
 
@@ -373,7 +374,7 @@ Follow steps 1-3 from the Basic Setup above.
       let greeting: string = `Hello, ${firstName} ${lastName}!`;
       ```
 
-    - Boolean
+    - **Boolean**
 
       Represents true or false values.
 
@@ -382,7 +383,7 @@ Follow steps 1-3 from the Basic Setup above.
       let hasAccess: boolean = false;
       ```
 
-    - Null & Undefine
+    - **Null & Undefine**
 
       - null represents an intentional absence of any value.
       - undefined represents a variable that has been declared but not yet assigned a value.
@@ -435,7 +436,7 @@ Follow steps 1-3 from the Basic Setup above.
 
       > **Key point:** You must explicitly allow null or undefined using a union type like string | null.
 
-    - BigInt
+    - **BigInt**
 
       Represents very large integers beyond the safe integer limit of number. Denoted with n at the end.
 
@@ -444,7 +445,7 @@ Follow steps 1-3 from the Basic Setup above.
       let anotherBig: bigint = BigInt(12345678901234567890);
       ```
 
-    - Symbol
+    - **Symbol**
 
       Represents a unique and immutable value, often used as an object property key.
 
@@ -457,7 +458,7 @@ Follow steps 1-3 from the Basic Setup above.
 
     **Special Types:**
 
-    - any
+    - **any**
 
       - The any type allows a variable to hold any type of value.
       - It disables type checking, which can be useful for gradual migration from JavaScript but should be used carefully.
@@ -472,7 +473,7 @@ Follow steps 1-3 from the Basic Setup above.
       console.log(randomValue); // true
       ```
 
-    - unknown
+    - **unknown**
 
       - The unknown type is similar to any but safer.
       - You cannot use it directly without type checking or type assertion.
@@ -488,7 +489,7 @@ Follow steps 1-3 from the Basic Setup above.
         }
         ```
 
-    - never
+    - **never**
 
       - Represents values that never occur.
       - Commonly used for functions that throw errors or infinite loops.
@@ -505,7 +506,7 @@ Follow steps 1-3 from the Basic Setup above.
       }
       ```
 
-    - void
+    - **void**
 
       - Represents absence of a value
       - Often used as the return type of functions that don’t return anything.
@@ -530,13 +531,13 @@ Follow steps 1-3 from the Basic Setup above.
     value = 100; // ✅ number
     ```
 
-    Why Use Union Types?
+    **Why Use Union Types?**
 
     - Makes variables flexible (can hold multiple types).
     - Reduces duplication (no need to declare multiple variables).
     - Improves type safety compared to any.
 
-    Basic Union Type Example -
+    **Basic Union Type Example -**
 
     ```ts
     let id: number | string;
@@ -544,7 +545,7 @@ Follow steps 1-3 from the Basic Setup above.
     id = "ABC123"; // ✅ string
     ```
 
-    Union with Primitive Types -
+    **Union with Primitive Types -**
 
     ```ts
     let result: number | boolean;
@@ -552,13 +553,13 @@ Follow steps 1-3 from the Basic Setup above.
     result = true; // ✅
     ```
 
-    Union with Arrays -
+    **Union with Arrays -**
 
     ```ts
     let values: (string | number)[] = [1, "two", 3, "four"];
     ```
 
-    Union with Functions -
+    **Union with Functions -**
 
     - A function can accept multiple types for parameters.
 
@@ -571,7 +572,7 @@ Follow steps 1-3 from the Basic Setup above.
       printId("ABC123"); // ✅ string
       ```
 
-    Union with Object Types -
+    **Union with Object Types -**
 
     ```ts
     type User = { id: number; name: string };
@@ -583,7 +584,7 @@ Follow steps 1-3 from the Basic Setup above.
     person = { id: "G-123", guest: true }; // ✅ Guest
     ```
 
-    Literal Unions -
+    **Literal Unions -**
 
     - Restrict a variable to specific values.
 
@@ -596,7 +597,7 @@ Follow steps 1-3 from the Basic Setup above.
       move = "Forward"; // ❌ Error
       ```
 
-    Union with Type Aliases -
+    **Union with Type Aliases -**
 
     ```ts
     type ID = number | string;
@@ -606,7 +607,7 @@ Follow steps 1-3 from the Basic Setup above.
     }
     ```
 
-    Discriminated Unions -
+    **Discriminated Unions -**
 
     - Great for handling multiple object shapes safely.
 
@@ -628,7 +629,7 @@ Follow steps 1-3 from the Basic Setup above.
 
     **Collection Types:**
 
-    - Array
+    - **Array**
 
       In TypeScript, an array is a data structure that allows for storing a collection of multiple items under a single variable name, maintaining a specific order, and providing strong type checking.
 
@@ -648,7 +649,7 @@ Follow steps 1-3 from the Basic Setup above.
         let fruits: Array<string> = ["Apple", "Banana", "Mango"];
         ```
 
-      Accessing and Modifying Array Elements:
+      **Accessing and Modifying Array Elements:**
 
       ```ts
       let colors: string[] = ["Red", "Green", "Blue"];
@@ -670,7 +671,7 @@ Follow steps 1-3 from the Basic Setup above.
       colors.shift(); // removes first
       ```
 
-      Array with Multiple Types (Union Types):
+      **Array with Multiple Types (Union Types):**
 
       ```ts
       let mixedArray: (number | string)[] = [1, "Two", 3, "Four"];
@@ -678,7 +679,7 @@ Follow steps 1-3 from the Basic Setup above.
       mixedArray.push("Six");
       ```
 
-      Readonly Arrays:
+      **Readonly Arrays:**
 
       - Prevents modification of array elements.
       - You can only read array.
@@ -690,7 +691,7 @@ Follow steps 1-3 from the Basic Setup above.
       // readonlyNumbers.push(4); // ❌ Error
       ```
 
-      Array Methods (Commonly Used):
+      **Array Methods (Commonly Used):**
 
       ```ts
       let nums: number[] = [1, 2, 3, 4, 5];
@@ -715,7 +716,7 @@ Follow steps 1-3 from the Basic Setup above.
       console.log(sum); // 15
       ```
 
-      Array Destructuring:
+      **Array Destructuring:**
 
       ```ts
       let fruits: string[] = ["Apple", "Banana", "Mango"];
@@ -725,7 +726,7 @@ Follow steps 1-3 from the Basic Setup above.
       console.log(second); // "Banana"
       ```
 
-      Spread Operator with Arrays:
+      **Spread Operator with Arrays:**
 
       ```ts
       let arr1: number[] = [1, 2, 3];
