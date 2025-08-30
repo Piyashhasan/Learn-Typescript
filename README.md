@@ -341,6 +341,7 @@ Follow steps 1-3 from the Basic Setup above.
       - Void
 
     - **Union Types**
+    - **Intersection Types**
     - **Collection Types**
 
       - Array
@@ -348,7 +349,6 @@ Follow steps 1-3 from the Basic Setup above.
     - **Tuples**
     - **Enums**
     - **Object Types**
-    - **Intersection Types**
     - **Class**
     - **Utility Types**
 
@@ -626,6 +626,111 @@ Follow steps 1-3 from the Basic Setup above.
         }
       }
       ```
+
+    **Intersection Types:**
+
+    An Intersection Type (&) combines multiple types into one. The resulting type must satisfy all types simultaneously.
+
+    ```ts
+    type A = { name: string };
+    type B = { age: number };
+
+    type Person = A & B;
+
+    let user: Person = {
+      name: "Piyash",
+      age: 24,
+    };
+    ```
+
+    Here, Person must have both name and age.
+
+    **Why Use Intersection Types?**
+
+    - Combine multiple types into one.
+    - Enforce multiple contracts at once.
+    - Useful in mixin patterns and complex models.
+
+    **Basic Intersection Example -**
+
+    ```ts
+    type User = { id: number };
+    type Employee = { role: string };
+
+    type Staff = User & Employee;
+
+    let staff: Staff = {
+      id: 101,
+      role: "Developer",
+    };
+    ```
+
+    **Intersection with Primitive Types -**
+
+    ```ts
+    type A = string & number;
+    // ❌ Impossible type, no value can be both string and number
+    ```
+
+    **Intersection with Type Aliases -**
+
+    ```ts
+    type HasId = { id: number };
+    type HasTimestamp = { createdAt: Date };
+
+    type RecordType = HasId & HasTimestamp;
+
+    let record: RecordType = {
+      id: 1,
+      createdAt: new Date(),
+    };
+    ```
+
+    **Intersection with Unions -**
+
+    ```ts
+    type Admin = { role: "admin"; permissions: string[] };
+    type User = { role: "user"; email: string };
+
+    type AdminUser = Admin & User;
+    // Must have both role:"admin" and role:"user" → ❌ rarely useful
+
+    //👉 More practical with shared structures:
+
+    type Shape = { color: string };
+    type Circle = { radius: number };
+
+    type ColoredCircle = Shape & Circle;
+
+    let cc: ColoredCircle = {
+      color: "red",
+      radius: 10,
+    };
+    ```
+
+    **Intersection with Functions -**
+
+    ```ts
+    type Add = (a: number, b: number) => number;
+    type Log = (msg: string) => void;
+
+    type Combined = Add & Log;
+    // Function must satisfy both (rare use case)
+    ```
+
+    **Intersection with Object Types -**
+
+    ```ts
+    type Contact = { email: string };
+    type Profile = { username: string };
+
+    type Account = Contact & Profile;
+
+    let account: Account = {
+      email: "test@example.com",
+      username: "piyash",
+    };
+    ```
 
     **Collection Types:**
 
