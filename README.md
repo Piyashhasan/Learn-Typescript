@@ -1192,28 +1192,30 @@ Follow steps 1-3 from the Basic Setup above.
 
     > **Note:** We will explore Classes in depth, along with Object-Oriented Programming (OOP) concepts in TypeScript, in the dedicated Classes & OOP section
 
+    </br>
+
     **Utility Types in TypeScript (Built-in):**
 
     TypeScript provides several built-in utility types that help transform existing types into new ones. These are very useful when working with objects and APIs.
 
     - Partial<T> :
 
-    Makes all properties optional.
+          Makes all properties optional.
 
-    ```ts
-    type User = {
-      id: number;
-      name: string;
-      email: string;
-    };
+          ```ts
+          type User = {
+            id: number;
+            name: string;
+            email: string;
+          };
 
-    type PartialUser = Partial<User>;
+          type PartialUser = Partial<User>;
 
-    let u1: PartialUser = { name: "Piyash" }; // ✅ only 'name' provided
-    let u2: PartialUser = {}; // ✅ even empty object is allowed
-    ```
+          let u1: PartialUser = { name: "Piyash" }; // ✅ only 'name' provided
+          let u2: PartialUser = {}; // ✅ even empty object is allowed
+          ```
 
-    > **Note:** 👉 Use when updating part of an object (e.g., PATCH request in APIs).
+          > **Note:** 👉 Use when updating part of an object (e.g., PATCH request in APIs).
 
     - Readonly<T>
 
