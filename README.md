@@ -325,9 +325,25 @@ Follow steps 1-3 from the Basic Setup above.
 5.  **Basic Type Categories in TypeScript -**
 
     - Primitive Types
+
+      - Number
+      - String
+      - Boolean
+      - Null & Undefine
+      - BigInt
+      - Symbol
+
     - Special Types
+
+      - Any
+      - Unknown
+      - Never
+
     - Union Types
     - Collection Types
+
+      - Array
+
     - Tuples
     - Enums
     - Object Types
@@ -494,7 +510,7 @@ Follow steps 1-3 from the Basic Setup above.
       - Represents absence of a value
       - Often used as the return type of functions that don’t return anything.
 
-       </br>
+        </br>
 
       ```ts
       function logMessage(message: string): void {
@@ -504,7 +520,7 @@ Follow steps 1-3 from the Basic Setup above.
       logMessage("Hello TypeScript!");
       ```
 
-      **Union Types:**
+    **Union Types:**
 
     A Union Type allows a variable to hold more than one type. It is written using the pipe (|) symbol.
 
@@ -882,7 +898,7 @@ Follow steps 1-3 from the Basic Setup above.
 
     - Works only for numeric enums (not string enums).
 
-    </br>
+      </br>
 
     ```ts
     enum Colors {
@@ -904,7 +920,7 @@ Follow steps 1-3 from the Basic Setup above.
     - User roles/permissions
     - Configurable app modes
 
-    </br>
+      </br>
 
     ```ts
     enum HttpStatus {
