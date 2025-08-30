@@ -1200,22 +1200,22 @@ Follow steps 1-3 from the Basic Setup above.
 
     - Partial<T> :
 
-          Makes all properties optional.
+      Makes all properties optional.
 
-          ```ts
-          type User = {
-            id: number;
-            name: string;
-            email: string;
-          };
+      ```ts
+      type User = {
+        id: number;
+        name: string;
+        email: string;
+      };
 
-          type PartialUser = Partial<User>;
+      type PartialUser = Partial<User>;
 
-          let u1: PartialUser = { name: "Piyash" }; // ✅ only 'name' provided
-          let u2: PartialUser = {}; // ✅ even empty object is allowed
-          ```
+      let u1: PartialUser = { name: "Piyash" }; // ✅ only 'name' provided
+      let u2: PartialUser = {}; // ✅ even empty object is allowed
+      ```
 
-          > **Note:** 👉 Use when updating part of an object (e.g., PATCH request in APIs).
+      > **Note:** 👉 Use when updating part of an object (e.g., PATCH request in APIs).
 
     - Readonly<T>
 
