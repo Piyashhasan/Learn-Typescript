@@ -1310,3 +1310,116 @@ Follow steps 1-3 from the Basic Setup above.
       ```
 
       > **Note:** 👉 Useful when you want to enforce all fields must be filled.
+
+6.  **Type Assertion Vs Type Casting -**
+
+    - Type Assertion
+
+      Type Assertion is a way in TypeScript to tell the compiler:
+
+      > **Note:** 👉 “Trust me, I know the actual type of this value better than you do.”
+
+      It does not change the runtime value — it only affects compile-time checking.
+
+      ```ts
+      let someValue: unknown = "Hello TypeScript";
+
+      // Assert as a string
+      let strLength: number = (someValue as string).length;
+
+      console.log(strLength); // 16
+      ```
+
+    - Explanation:
+
+      - someValue is declared as unknown.
+      - The compiler doesn’t know it’s a string.
+      - We assert that someValue is a string with (someValue as string).
+      - Now, TypeScript allows us to use .length.
+
+      </br>
+
+      > **Note:** Type assertion doesn’t convert data — at runtime it’s still the same "Hello TypeScript".
+
+    - Type Casting
+
+      Type Casting generally means converting one type of data to another at runtime.
+
+      👉 This is different from TypeScript’s type system, because casting really changes the data.
+
+      ```ts
+      let numStr: string = "123";
+
+      // Convert string to number (type casting)
+      let num: number = Number(numStr);
+
+      console.log(num); // 123
+      console.log(typeof num); // "number"
+      ```
+
+      - Explanation:
+
+        - Here, "123" (a string) is cast/converted into 123 (a number).
+
+        - This is runtime conversion, not just a compile-time hint.
+
+      **Are Type Assertion & Type Casting the Same?**
+
+      > **Note:** ❌ No, they are not the same.
+
+      | Feature            | Type Assertion (TS only)                               | Type Casting (JS/Runtime)                     |
+      | ------------------ | ------------------------------------------------------ | --------------------------------------------- |
+      | **Definition**     | Tells compiler to treat a value as a specific type     | Converts data from one type to another        |
+      | **Runtime Effect** | No effect (compile-time only)                          | Actually changes the data                     |
+      | **Example**        | `value as string `                                     | `Number("123")       `                        |
+      | **Use case**       | When compiler is unsure, but you know the correct type | When you need to change value type at runtime |
+
+      **Quick Combined Example-**
+
+      ```ts
+      let value: unknown = "42";
+
+      // ✅ Type Assertion
+      let strValue: string = value as string;
+      console.log(strValue.length); // Works, compiler trusts us
+
+      // ✅ Type Casting
+      let numValue: number = Number(strValue);
+      console.log(numValue + 10); // 52
+      ```
+
+    - Non-Null Assertion Operator (!) in TypeScript
+
+      The non-null assertion operator (!) is used in TypeScript to tell the compiler:
+
+      > **Note:** “I’m sure this value is not null or undefined — trust me.”
+
+      It doesn’t change runtime behavior; it only affects compile-time type checking.
+
+      ```ts
+      let username: string | null = null;
+
+      // Compiler error ❌: Object is possibly 'null'.
+      console.log(username.length);
+      ```
+
+      Here, since username could be null, TypeScript does not allow direct access to .length.
+
+      🔹 Example With (!)
+
+      ```ts
+      let username: string | null = "Piyash";
+
+      // Using non-null assertion
+      console.log(username!.length); // ✅ 6
+      ```
+
+      Explanation -
+
+      - username has the type string | null.
+      - By writing username!, we tell the compiler: “Don’t worry, username is not null here.”
+      - So, TypeScript allows .length.
+
+      </br>
+
+      > **Note:** ! does not remove null at runtime. If the value is actually null or undefined, you’ll get a runtime error.
