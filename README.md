@@ -1647,16 +1647,230 @@ Follow steps 1-3 from the Basic Setup above.
         type Keys = keyof Person; // "id" | "name" | "email"
         ```
 
-        - Indexed Access (`T["key"]`) → Extracts the type of a specific property.
+      - Indexed Access (`T["key"]`) → Extracts the type of a specific property.
 
-          ```ts
-          type NameType = Person["name"]; // string
-          ```
+        ```ts
+        type NameType = Person["name"]; // string
+        ```
 
-        - Combine both for flexible, type-safe utilities.
+      - Combine both for flexible, type-safe utilities.
 
-          ```ts
-          type Values = Person[keyof Person]; // union of all property types
-          ```
+        ```ts
+        type Values = Person[keyof Person]; // union of all property types
+        ```
 
       > **Note:** 👉 This pair (`keyof` + `T["key"]`) is the foundation for advanced TypeScript utilities (like Pick, Omit, Record).
+
+9.  **Duck typing**
+
+    🦆 Duck Typing is a concept in programming (especially in TypeScript and other languages with structural typing) that means:
+
+    > **Note:** “If it looks like a duck, swims like a duck, and quacks like a duck — then TypeScript considers it a duck.”
+
+    In other words, an object’s shape/structure matters more than its explicit type.
+    If an object has all the required properties, TypeScript treats it as that type — even if it wasn’t explicitly declared.
+
+    ✅ **Example 1:** Basic Duck Typing
+
+    ```ts
+    type Person = {
+      name: string;
+      age: number;
+    };
+
+    let user = { name: "Piyash", age: 24, city: "Dhaka" };
+
+    function greet(p: Person) {
+      console.log(`Hello, ${p.name}. You are ${p.age} years old.`);
+    }
+
+    greet(user);
+    // ✅ Works because user has 'name' and 'age',
+    // even though it has an extra property 'city'.
+    ```
+
+    👉 Here:
+
+    - The function greet expects a Person.
+
+    - The object user has name and age, so TypeScript says “Okay, this is good enough.”
+
+    - The extra property city is ignored — that’s duck typing.
+
+    ✅ **Example 2:** Interfaces with Duck Typing
+
+    ```ts
+    interface Flyer {
+      fly(): void;
+    }
+
+    let bird = {
+      fly: () => console.log("Bird is flying..."),
+      color: "red",
+    };
+
+    function makeItFly(f: Flyer) {
+      f.fly();
+    }
+
+    makeItFly(bird);
+    // ✅ Allowed because 'bird' has a fly() method,
+    // even though it's not explicitly a Flyer.
+    ```
+
+    ✅ **Example 3:** Real-World Analogy
+
+        - Think of duck typing like job skills:
+
+        - If a person can cook, you don’t care whether they studied culinary arts in college — they’re still a cook.
+
+        -In TypeScript, if an object has the required properties, it matches the type, regardless of its declared label.
+
+10. **Advanced Types in TypeScript**
+
+
+    - Mapped Types
+
+      Mapped types allow you to create new types by transforming properties of an existing type.
+
+      **Example:** Make all properties optional
+
+      ```ts
+      type Person = {
+        id: number;
+        name: string;
+        email: string;
+      };
+
+      // Map all properties to optional
+      type PartialPerson = {
+        [K in keyof Person]?: Person[K];
+      };
+
+      let p1: PartialPerson = { name: "Piyash" }; // ✅ only name is required
+      ```
+
+      **Example:** Make all properties readonly
+
+      ```ts
+      type ReadonlyPerson = {
+        readonly [K in keyof Person]: Person[K];
+      };
+
+      let p2: ReadonlyPerson = { id: 1, name: "Hasan", email: "test@mail.com" };
+      // p2.name = "New Name"; ❌ Error: readonly
+      ```
+
+    - Conditional Types (`T extends U ? X : Y`)
+
+      Conditional types allow types to change depending on a condition.
+
+      ```ts
+      type Check<T> = T extends string ? "Yes" : "No";
+
+      type A = Check<string>; // "Yes"
+      type B = Check<number>; // "No"
+      ```
+
+      **Example:** Filter types
+
+      ```ts
+      type TypeFilter<T> = T extends number ? T : never;
+
+      type Result = TypeFilter<string | number | boolean>;
+      // Result = number
+      ```
+
+      > **Note:** ✅ Useful for dynamic type computation.
+
+    - Template Literal Types
+
+      Template literal types allow string manipulation at the type level.
+
+      ```ts
+      type Event = "click" | "hover" | "scroll";
+      type PrefixedEvent = `on${Capitalize<Event>}`;
+
+      let e1: PrefixedEvent = "onClick"; // ✅
+      let e2: PrefixedEvent = "onHover"; // ✅
+      // let e3: PrefixedEvent = "onDrag"; ❌ Error
+      ```
+
+      **Example:** Combine types
+
+      ```ts
+      type Status = "success" | "error";
+      type Msg = `status-${Status}`;
+
+      let m: Msg = "status-success"; // ✅
+      ```
+
+    - Index Signatures
+
+      Index signatures allow dynamic keys in objects when you don’t know all property names in advance.
+
+      ```ts
+      type StringNumberMap = {
+        [key: string]: number;
+      };
+
+      let scores: StringNumberMap = {
+        math: 90,
+        physics: 95,
+      };
+
+      scores.chemistry = 85; // ✅ dynamic keys allowed
+      ```
+
+      **Example:** Number keys
+
+      ```ts
+      type NumberDict = {
+        [key: number]: string;
+      };
+
+      let items: NumberDict = {
+        1: "Apple",
+        2: "Banana",
+      };
+      ```
+
+    - Lookup Types (`T[K]`)
+
+      Lookup types let you extract the type of a property from another type.
+
+      ```ts
+      type Person = {
+        id: number;
+        name: string;
+        email: string;
+      };
+
+      type NameType = Person["name"]; // string
+      type IdType = Person["id"]; // number
+      ```
+
+      **Example:** Multiple keys
+
+      ```ts
+      type IdOrName = Person["id" | "name"]; // number | string
+      ```
+
+      **Example:** Combine with keyof
+
+      ```ts
+      type AllValues = Person[keyof Person];
+      // number | string
+      ```
+
+      > **Note:** ✅ Useful for type-safe property access in functions.
+
+✅ **Summary of Advanced Types**
+
+| Type                       | Purpose                                                   |
+| -------------------------- | --------------------------------------------------------- |
+| **Mapped Types**           | Transform properties of a type (e.g., readonly, optional) |
+| **Conditional Types**      | Create types based on conditions (`T extends U ? X : Y`)  |
+| **Template Literal Types** | Create string types dynamically using template literals   |
+| **Index Signatures**       | Allow objects with dynamic property keys                  |
+| **Lookup Types (`T[K]`)**  | Extract type of a property or multiple properties         |
