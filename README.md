@@ -1423,3 +1423,240 @@ Follow steps 1-3 from the Basic Setup above.
       </br>
 
       > **Note:** ! does not remove null at runtime. If the value is actually null or undefined, you’ll get a runtime error.
+
+7.  **Type Narrowing-**
+
+    In TypeScript, Type Narrowing means refining a variable’s type based on certain checks. If a variable has a union type, narrowing helps the compiler understand what the type really is at a specific point in code.
+
+    ```ts
+    function printValue(value: string | number) {
+      if (typeof value === "string") {
+        // TypeScript now knows 'value' is a string
+        console.log("Uppercased:", value.toUpperCase());
+      } else {
+        // Here 'value' is narrowed to number
+        console.log("Doubled:", value * 2);
+      }
+    }
+
+    printValue("hello"); // Uppercased: HELLO
+    printValue(10); // Doubled: 20
+    ```
+
+    - `typeof` Type Guards
+
+      The typeof operator is used to check the type of a primitive value at runtime.
+      It’s useful for narrowing types like `string | number | boolean.`
+
+      ```ts
+      function printValue(value: string | number) {
+        if (typeof value === "string") {
+          console.log("String in uppercase:", value.toUpperCase());
+        } else {
+          // Here TypeScript knows value must be a number
+          console.log("Number doubled:", value * 2);
+        }
+      }
+
+      printValue("hello"); // String in uppercase: HELLO
+      printValue(10); // Number doubled: 20
+      ```
+
+      > **Note:** 👉 Here, `typeof` narrows the type inside each branch.
+
+    - `instanceof` Instance Of
+
+      The `instanceof` operator checks if an object is an instance of a particular class or constructor function.
+      It’s useful for narrowing object types.
+
+      ```ts
+      class Dog {
+        bark() {
+          console.log("Woof!");
+        }
+      }
+
+      class Cat {
+        meow() {
+          console.log("Meow!");
+        }
+      }
+
+      function makeSound(animal: Dog | Cat) {
+        if (animal instanceof Dog) {
+          animal.bark(); // ✅ Compiler knows animal is Dog here
+        } else {
+          animal.meow(); // ✅ Otherwise, it's Cat
+        }
+      }
+
+      makeSound(new Dog()); // Woof!
+      makeSound(new Cat()); // Meow!
+      ```
+
+      > **Note:** 👉 `instanceof` narrows down which class the object belongs to.
+
+    - Custom Type Predicates
+
+      Sometimes typeof and instanceof aren’t enough, especially for interfaces or complex objects.
+      In those cases, we can define our own type guard functions with a type predicate (parameterName is Type).
+
+      ```ts
+      type Car = { drive: () => void };
+      type Bike = { ride: () => void };
+
+      function isCar(vehicle: Car | Bike): vehicle is Car {
+        return (vehicle as Car).drive !== undefined;
+      }
+
+      function useVehicle(vehicle: Car | Bike) {
+        if (isCar(vehicle)) {
+          vehicle.drive(); // ✅ Compiler knows vehicle is Car here
+        } else {
+          vehicle.ride(); // ✅ Otherwise, it's Bike
+        }
+      }
+
+      let myCar: Car = { drive: () => console.log("Driving car...") };
+      let myBike: Bike = { ride: () => console.log("Riding bike...") };
+
+      useVehicle(myCar); // Driving car...
+      useVehicle(myBike); // Riding bike...
+      ```
+
+      **Summary Table**
+
+      | Technique                 | Works With                | Example Use Case                                  |
+      | ------------------------- | ------------------------- | ------------------------------------------------- |
+      | `typeof`                  | Primitive types           | Check if a value is `string, number, boolean` etc |
+      | `instanceof`              | Classes / Constructors    | Distinguish between different class instances     |
+      | **Custom Type Predicate** | Interfaces / Custom types | Check if an object matches a specific shape       |
+
+8.  **Indexed Access & Keyof-**
+
+    - `keyof` Operator
+
+      The keyof operator is used to get the keys of a type as a union of string literals.
+
+      ```ts
+      type Person = {
+        id: number;
+        name: string;
+        email: string;
+      };
+
+      type PersonKeys = keyof Person;
+      // Equivalent to: "id" | "name" | "email"
+
+      let key: PersonKeys;
+
+      key = "id"; // ✅
+      key = "name"; // ✅
+      key = "email"; // ✅
+      // key = "age"; ❌ Error: not a key of Person
+      ```
+
+      > **Note:** 👉 keyof is useful when you want to restrict values to the keys of an object type.
+
+      **Example: With Index Signatures**
+
+      ```ts
+      type Dictionary = {
+        [key: string]: number;
+      };
+
+      type DictKeys = keyof Dictionary;
+      // string | number (because object keys can also be numbers)
+      ```
+
+      - Indexed Access Types `(T["key"])`
+
+        This lets you access the type of a property from another type.
+
+        ```ts
+        type Person = {
+          id: number;
+          name: string;
+          email: string;
+        };
+
+        type NameType = Person["name"]; // string
+        type IdType = Person["id"]; // number
+        type EmailType = Person["email"]; // string
+        ```
+
+        > **Note:** 👉 This is like looking up a property’s type.
+
+        **Example: Multiple Keys**
+
+        You can extract multiple property types at once.
+
+        ```ts
+        type Person = {
+          id: number;
+          name: string;
+          email: string;
+        };
+
+        type IdAndName = Person["id" | "name"];
+        // number | string
+        ```
+
+        **Example: Using keyof with Indexed Access**
+
+        ```ts
+        type Person = {
+          id: number;
+          name: string;
+          email: string;
+        };
+
+        type AllValues = Person[keyof Person];
+        // number | string
+        ```
+
+        > **Note:** 👉 This gives you a union of all property types.
+
+        **Example: Generic Function with keyof and Indexed Access**
+
+        ```ts
+        type Person = {
+          id: number;
+          name: string;
+          email: string;
+        };
+
+        function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+          return obj[key];
+        }
+
+        let user: Person = { id: 1, name: "Piyash", email: "test@mail.com" };
+
+        let nameValue = getValue(user, "name"); // string
+        let idValue = getValue(user, "id"); // number
+        ```
+
+        - `K extends keyof T` ensures the key must exist.
+        - `T[K]` gives us the type of that property.
+
+      **Summary**
+
+      - `keyof` → Extracts all keys of a type as a union.
+
+        ```ts
+        type Keys = keyof Person; // "id" | "name" | "email"
+        ```
+
+        - Indexed Access (`T["key"]`) → Extracts the type of a specific property.
+
+          ```ts
+          type NameType = Person["name"]; // string
+          ```
+
+        - Combine both for flexible, type-safe utilities.
+
+          ```ts
+          type Values = Person[keyof Person]; // union of all property types
+          ```
+
+      > **Note:** 👉 This pair (`keyof` + `T["key"]`) is the foundation for advanced TypeScript utilities (like Pick, Omit, Record).
