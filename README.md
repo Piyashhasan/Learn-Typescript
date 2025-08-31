@@ -1720,14 +1720,13 @@ Follow steps 1-3 from the Basic Setup above.
 
     ✅ **Example 3:** Real-World Analogy
 
-        - Think of duck typing like job skills:
+    - Think of duck typing like job skills:
 
-        - If a person can cook, you don’t care whether they studied culinary arts in college — they’re still a cook.
+    - If a person can cook, you don’t care whether they studied culinary arts in college — they’re still a cook.
 
-        -In TypeScript, if an object has the required properties, it matches the type, regardless of its declared label.
+    -In TypeScript, if an object has the required properties, it matches the type, regardless of its declared label.
 
 10. **Advanced Types in TypeScript**
-
 
     - Mapped Types
 
