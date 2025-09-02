@@ -14,8 +14,8 @@
 - [Install TypeScript](#install-typescript--)
 - [Introduction to TypeScript](#introduction-to-typescript--)
 - [All About Types](#all-about-types--)
-- [Variables](#variables)
-- [Conditionals](#conditionals)
+- [Variables in TypeScript](#variables-in-typeScript)
+- [Conditional Statements](#conditionals)
 - [Loops](#loops)
 - [Functions](#functions)
 - [Objects & Interfaces](#objects--interfaces)
@@ -1873,3 +1873,198 @@ Follow steps 1-3 from the Basic Setup above.
 | **Template Literal Types** | Create string types dynamically using template literals   |
 | **Index Signatures**       | Allow objects with dynamic property keys                  |
 | **Lookup Types (`T[K]`)**  | Extract type of a property or multiple properties         |
+
+---
+
+# Variables in TypeScript
+
+Variables are used to store values that can be referenced and manipulated in a program. In TypeScript, variable declarations work similarly to JavaScript, but with type safety.
+
+- Variable Declaration in TypeScript
+
+  In TypeScript, you declare variables using three keywords:
+
+  - `let` → Block-scoped variable, value can be reassigned.
+  - `const` → Block-scoped constant, value cannot be reassigned.
+  - `var` → Function-scoped variable (legacy, rarely used).
+
+  You can optionally specify a type when declaring a variable:
+
+  ```ts
+  // Explicit type declaration
+  let username: string = "Piyash";
+
+  // Inferred type (TypeScript infers `number`)
+  let age = 25;
+
+  // Constant variable with explicit type
+  const isAdmin: boolean = true;
+
+  // Using var (not recommended)
+  var city: string = "Dhaka";
+  ```
+
+  > **Note:** 🔑 Key Point: If you don’t provide a type, TypeScript infers it from the initial value.
+
+---
+
+# Conditional Statements
+
+Conditions allow you to control the flow of a program by executing different code blocks based on whether an expression is true or false.
+
+TypeScript supports the same conditional structures as JavaScript, but with type safety.
+
+- `if` Statement
+
+  The if statement is used to run a block of code only if a condition is true.
+
+  Syntax:
+
+  ```ts
+  if (condition) {
+    // code runs if condition is true
+  }
+  ```
+
+  Example:
+
+  ```ts
+  let age: number = 20;
+
+  if (age >= 18) {
+    console.log("You are an adult.");
+  }
+  // Output: You are an adult.
+  ```
+
+- `if...else` Statement
+
+  The if...else statement runs one block of code if the condition is true, otherwise another block runs.
+
+  Syntax:
+
+  ```ts
+  if (condition) {
+    // runs if true
+  } else {
+    // runs if false
+  }
+  ```
+
+  Example:
+
+  ```ts
+  let isLoggedIn: boolean = false;
+
+  if (isLoggedIn) {
+    console.log("Welcome back!");
+  } else {
+    console.log("Please log in.");
+  }
+  // Output: Please log in.
+  ```
+
+- Nested `if...else` Statement
+
+  You can place an if...else inside another to check multiple conditions.
+
+  Syntax:
+
+  ```ts
+  if (condition1) {
+    // code if condition1 is true
+  } else if (condition2) {
+    // code if condition2 is true
+  } else {
+    // code if none are true
+  }
+  ```
+
+  Example:
+
+  ```ts
+  let score: number = 85;
+
+  if (score >= 90) {
+    console.log("Grade: A");
+  } else if (score >= 75) {
+    console.log("Grade: B");
+  } else if (score >= 50) {
+    console.log("Grade: C");
+  } else {
+    console.log("Grade: F");
+  }
+  // Output: Grade: B
+  ```
+
+- `switch` Statement
+
+  The switch statement is used when you want to compare one value against multiple options. It’s cleaner than writing many if...else if statements.
+
+  Syntax:
+
+  ```ts
+  switch (expression) {
+    case value1:
+      // code block
+      break;
+    case value2:
+      // code block
+      break;
+    default:
+    // code if no case matches
+  }
+  ```
+
+  Example:
+
+  ```ts
+  let day: number = 3;
+
+  switch (day) {
+    case 1:
+      console.log("Monday");
+      break;
+    case 2:
+      console.log("Tuesday");
+      break;
+    case 3:
+      console.log("Wednesday");
+      break;
+    default:
+      console.log("Invalid day");
+  }
+  // Output: Wednesday
+  ```
+
+- Ternary Operator
+
+  The ternary operator `(? :)` is a shorthand for `if...else`.
+
+  It is useful for simple one-line conditions.
+
+  Syntax:
+
+  ```ts
+  condition ? valueIfTrue : valueIfFalse;
+  ```
+
+  Example 1 (basic):
+
+  ```ts
+  let age: number = 18;
+  let status: string = age >= 18 ? "Adult" : "Minor";
+  console.log(status);
+  // Output: Adult
+  ```
+
+  Example 2 (nested ternary):
+
+  ```ts
+  let marks: number = 72;
+  let result: string =
+    marks >= 80 ? "Excellent" : marks >= 50 ? "Pass" : "Fail";
+
+  console.log(result);
+  // Output: Pass
+  ```
