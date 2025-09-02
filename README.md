@@ -2068,3 +2068,92 @@ TypeScript supports the same conditional structures as JavaScript, but with type
   console.log(result);
   // Output: Pass
   ```
+
+---
+
+# Loops in TypeScript
+
+Loops are used to repeat a block of code multiple times until a certain condition is met.
+
+TypeScript provides several types of loops, similar to JavaScript, but with type safety.
+
+- `for` Loop
+
+  The `for` loop is used when the number of iterations is known in advance.
+
+  Syntax:
+
+  ```ts
+  for (initialization; condition; increment / decrement) {
+    // code to execute
+  }
+  ```
+
+  Example:
+
+  ```ts
+  for (let i: number = 1; i <= 5; i++) {
+    console.log("Count:", i);
+  }
+  // Output:
+  // Count: 1
+  // Count: 2
+  // Count: 3
+  // Count: 4
+  // Count: 5
+  ```
+
+- `while` Loop
+
+  The `while` loop executes a block of code as long as the condition is true.
+
+  Syntax:
+
+  ```ts
+  while (condition) {
+    // code to execute
+  }
+  ```
+
+  Example:
+
+  ```ts
+  let num: number = 1;
+
+  while (num <= 3) {
+    console.log("Number:", num);
+    num++;
+  }
+  // Output:
+  // Number: 1
+  // Number: 2
+  // Number: 3
+  ```
+
+- `do...while` Loop
+
+  The `do...while` loop is similar to the while loop, but it executes the block at least once, even if the condition is false.
+
+  Syntax:
+
+  ```ts
+  do {
+    // code to execute
+  } while (condition);
+  ```
+
+  Example:
+
+  ```ts
+  let count: number = 1;
+
+  do {
+    console.log("Iteration:", count);
+    count++;
+  } while (count <= 3);
+
+  // Output:
+  // Iteration: 1
+  // Iteration: 2
+  // Iteration: 3
+  ```
